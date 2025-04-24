@@ -1,0 +1,17 @@
+{
+  "name": "open-tarot-token-manager",
+  "version": "1.0.0",
+  "description": "Gerenciador de fichas para o open tarot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Emanuel Ozorio",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "firebase-admin": "^13.3.0"
+  }
+}

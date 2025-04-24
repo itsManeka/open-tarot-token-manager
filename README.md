@@ -51,7 +51,7 @@ API para gerenciamento de fichas no aplicativo de consulta de tarot, incluindo r
    ```
 
 2. Acesse a API em:  
-   [https://open-tarot-token-manager-ss53.onrender.com](https://open-tarot-token-manager-ss53.onrender.com)
+   [https://open-tarot-token-manager.onrender.com](https://open-tarot-token-manager.onrender.com)
 
 ## 📌 Endpoints
 

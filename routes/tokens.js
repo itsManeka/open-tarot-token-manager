@@ -1,15 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { db, auth, admin } = require('../firebase');
+const { db, admin, verifyUser } = require('../firebase');
 
 const CLAIM_INTERVAL = 24 * 60 * 60 * 1000;
-
-async function verifyUser(req) {
-    const token = req.headers.authorization?.split('Bearer ')[1];
-    if (!token) throw new Error('Unauthorized');
-    const decoded = await auth.verifyIdToken(token);
-    return decoded.uid;
-}
 
 router.post('/claim', async (req, res) => {
     try {

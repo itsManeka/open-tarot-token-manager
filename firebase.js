@@ -13,4 +13,11 @@ admin.initializeApp({
 const db = admin.firestore();
 const auth = admin.auth();
 
-module.exports = { admin, db, auth };
+async function verifyUser(req) {
+    const token = req.headers.authorization?.split('Bearer ')[1];
+    if (!token) throw new Error('Unauthorized');
+    const decoded = await auth.verifyIdToken(token);
+    return decoded.uid;
+}
+
+module.exports = { admin, db, auth, verifyUser };

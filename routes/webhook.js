@@ -25,7 +25,7 @@ router.post('/', bodyParser.raw({ type: 'application/json' }), async (req, res) 
 
     if (event.type === 'checkout.session.completed') {
         const session = event.data.object;
-        const userId = session.metadata.userId;
+        const userId = session.metadata.uid;
 
         await adicionarFichas(userId, 10);
     }

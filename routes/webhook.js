@@ -3,11 +3,14 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 
+const Stripe = require('stripe');
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+
 const { adicionarFichas } = require('../src/token-manager');
 
 const bodyParser = require('body-parser');
 
-router.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
+router.post('/', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
     const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 

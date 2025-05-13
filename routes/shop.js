@@ -19,13 +19,19 @@ router.post('/checkout-session', async (req, res) => {
     try {
         const uid = await verifyUser(req);
 
+        const price = await stripe.prices.retrieve(priceId, { expand: ['product'] });
+        const qtd = price.metadata.qtd || '1';
+
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             mode: 'payment',
             line_items: [{ price: priceId, quantity: 1 }],
             success_url: `${process.env.URL_OFICIAL}/success?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${process.env.URL_OFICIAL}/canceled`,
-            metadata: { uid },
+            metadata: {
+                uid,
+                qtd
+            },
         });
 
         res.json({ url: session.url });

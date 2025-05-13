@@ -20,7 +20,7 @@ router.post('/checkout-session', async (req, res) => {
         const uid = await verifyUser(req);
 
         const price = await stripe.prices.retrieve(priceId, { expand: ['product'] });
-        const qtd = price.metadata.qtd || '1';
+        const qtd = price.product.metadata.qtd || '1';
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],

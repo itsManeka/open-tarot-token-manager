@@ -109,10 +109,17 @@ router.get('/verify-session', async (req, res) => {
 });
 
 router.get('/products', async (req, res) => {
-    const products = await stripe.prices.list({ expand: ['data.product'] });
-    const data = products.data;
+    try {
+        const prices = await stripe.prices.list({
+            active: true,
+            expand: ['data.product'],
+        });
 
-    res.json(data);
+        res.json(prices.data);
+    } catch (error) {
+        console.error("Erro ao listar produtos:", error);
+        res.status(500).json({ error: 'Erro ao buscar produtos' });
+    }
 });
 
 module.exports = router;

@@ -7,6 +7,7 @@ const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 const { adicionarFichas } = require('../src/token-manager');
+const { adicionarNotificacoes } = require('../src/notifications');
 
 const bodyParser = require('body-parser');
 
@@ -29,6 +30,12 @@ router.post('/', bodyParser.raw({ type: 'application/json' }), async (req, res) 
         const qtd = parseInt(session.metadata.qtd || '1', 10);
 
         await adicionarFichas(userId, qtd);
+        await adicionarNotificacoes(
+            userId,
+            "Loja",
+            "Sua compra foi processada com sucesso.",
+            "token"
+        );
     }
 
     res.json({ received: true });
